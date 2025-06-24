@@ -13,7 +13,7 @@ ReticularNet is a Python-based pipeline for segmenting Reticular Pseudodrusen (R
 ## Repository Structure
 
 ```
-ReticularNet/
+ReticularNet/python_scripts/
 ├── compute_dice_statistics.py           # Pairwise & consensus Dice analysis
 ├── compute_agreement_metrics.py         # ICC & paired Wilcoxon tests
 ├── segmentation_performance_visualization.py  # Overlays + DSC, area plots, Bland-Altman
