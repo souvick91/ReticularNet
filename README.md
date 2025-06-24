@@ -1,31 +1,42 @@
 # ReticularNet
 
-ReticularNet is a Python-based pipeline for segmenting Reticular Pseudodrusen (RPD) in fundus images using a deep learning model and evaluating its performance against manual clinician gradings. This repository provides scripts to compute segmentation metrics, perform statistical analyses, generate visualizations, and summarize clinical characteristics.
+Automated pixel-level segmentation of Reticular Pseudodrusen (RPD) in infra-red reflectance images by deep learning, with extensive performance evaluation and comparison to clinician gradings.
 
 ## Features
 
-* **Segmentation Metrics**: Compute Dice similarity coefficients (pairwise, majority vote, full agreement).
-* **Reliability Analysis**: Calculate intraclass correlation (ICC) and perform Wilcoxon and Wald tests.
-* **Visualizations**: Generate violin plots, Bland–Altman plots, scatter/regression plots, ROC curves.
-* **Clinical Summaries**: Produce Table 1 characteristics summaries (total/train/test by RPD+/RPD–, nearest visit within ±90 days).
-* **Detection Performance**: Compute ROC‐AUC, optimal Youden’s J thresholds, and Dice at threshold for AI and human graders.
+* **Deep Learning Model**: Training and testing scripts for RPD segmentation using DeepLabv3+ in MATLAB.
+* **Python Analysis Pipeline**: Compute segmentation metrics, agreement statistics, lesion/detection performance, and generate visualizations.
+* **Clinical Summaries**: Automated generation of Table 1 characteristics and RPD summaries by AMD group.
+* **Statistical Tests**: Intraclass correlation, Wilcoxon, Wald-type tests, ROC/AUC analysis with Youden’s J thresholds.
+* **Visualizations**: Violin plots, Bland–Altman plots, scatter/regression, ROC curves.
 
 ## Repository Structure
 
 ```
-ReticularNet/python_scripts/
-├── compute_dice_statistics.py           # Pairwise & consensus Dice analysis
-├── compute_agreement_metrics.py         # ICC & paired Wilcoxon tests
-├── segmentation_performance_visualization.py  # Overlays + DSC, area plots, Bland-Altman
-├── area_difference_violin_plot.py       # Violin plot of area differences (human vs AI)
-├── compute_segmentation_metrics.py      # Lesion counts, area, contour area + concave-hull overlays
+ReticularNet/
+├── matlab_scripts_and_checkpoints/       # MATLAB code and pretrained model checkpoints
+│   ├── combinedCrossEntropyDiceLoss.m     # Custom loss combining cross-entropy & Dice
+│   ├── createLGraphUsingConnections.m     # Build DeepLabv3+ layer graph with skip connections
+│   ├── DeepLabv3_Test_for_RPD.m           # Inference script: test RPD segmentation
+│   ├── DeepLabv3_Train_for_RPD.m          # Training script: train DeepLabv3+ on IR images
+│   ├── DeepLabv3plusResnet18CamVid_v2.mat # Pretrained checkpoint for transfer learning
+│   ├── freezeWeights.m                    # Utility to freeze specified network layers
+│   ├── masterTrainTest.m                  # End-to-end train/test workflow wrapper
+│   └── net_finetuned_for_rpd.mat          # Fine-tuned model checkpoint for RPD
+│
+├── compute_dice_statistics.py            # Pairwise & consensus Dice analysis
+├── compute_agreement_metrics.py          # ICC & paired Wilcoxon tests
+├── compute_segmentation_metrics.py       # Lesion counts, areas, contour areas + overlays
+├── segmentation_performance_visualization.py  # Overlay figures, scatter/regression, Bland–Altman, violin
+├── area_difference_violin_plot.py        # Violin plot of area differences (clinicians vs. AI)
 ├── compare_lesion_metrics_to_ground_truth.py  # Cluster-robust signed differences & Wald tests
-├── generate_table_characteristics_summary.py # Table: clinical characteristics by RPD status
-├── summarize_rpd_by_amd_group.py        # RPD prevalence & demographics by AMD severity group
-├── compute_detection_metrics.py         # ROC, Youden’s J, AUC, p-values, Dice at threshold
-├── compute_roc_auc_se_and_pvalues.py    # AUC ± SE vs. chance for AI, graders, combined
-├── requirements.txt
-└── README.md
+├── generate_table1_characteristics_summary.py # Table 1 summary for total/train/test by RPD status
+├── summarize_rpd_by_amd_group.py         # RPD prevalence & demographics by AMD severity group
+├── compute_detection_metrics.py          # ROC/AUC, Youden’s J, p-values, Dice at threshold for detection
+├── compute_roc_auc_se_and_pvalues.py     # AUC ± SE and p-value vs. chance for AI, graders, combined
+├── requirements.txt                      # Python dependencies
+├── LICENSE                               # Apache 2.0 License
+└── README.md                             # This file
 ```
 
 ## Installation
@@ -36,42 +47,64 @@ ReticularNet/python_scripts/
    git clone https://github.com/<your-username>/ReticularNet.git
    cd ReticularNet
    ```
-2. **Create and activate a virtual environment**
+2. **MATLAB**
+
+   * Ensure you have MATLAB R2022a or later with Deep Learning Toolbox.
+   * Add `matlab_scripts_and_checkpoints/` to your MATLAB path.
+3. **Python**
 
    ```bash
    python3 -m venv venv
-   source venv/bin/activate    # Windows: venv\Scripts\activate
-   ```
-3. **Install dependencies**
-
-   ```bash
+   source venv/bin/activate    # Windows: venv\\Scripts\\activate
    pip install -r requirements.txt
    ```
 
 ## Configuration
 
-* Each script defines file paths at the top (e.g., `gt_folder`, `pred_folder`, `saveLoc`).
-* Update these variables to point to your local directories containing ground-truth masks, AI predictions, raw IR images, and desired output locations.
+* Modify file paths at the top of each script:
+
+  * **MATLAB**: `DeepLabv3_Train_for_RPD.m` and test scripts expect folders for IR images and ground truth masks.
+  * **Python**: Each script defines variables like `gt_folder`, `pred_folder`, and `saveLoc`.
 
 ## Usage
 
-Run the desired analysis script from the command line. Examples:
+### MATLAB Training & Testing
+
+Launch MATLAB and run:
+
+```matlab
+% Train model
+DeepLabv3_Train_for_RPD
+% Test model
+DeepLabv3_Test_for_RPD
+```
+
+### Python Analyses
+
+From the repo root, run any desired analysis:
 
 ```bash
 python compute_dice_statistics.py
 python compute_agreement_metrics.py
-python area_difference_violin_plot.py
+python compute_detection_metrics.py
+python segmentation_performance_visualization.py
 ```
 
-Results (Excel, CSV, plots) will be saved to the output directories specified in each script.
+All outputs (Excel reports, CSVs, and plots) are saved to the directories specified in each script.
+
+## Examples
+
+* **Dice statistics**: `compute_dice_statistics.py` produces an Excel file with mean±SD Dice for each pair of graders and consensus masks.
+* **ROC curves**: `compute_detection_metrics.py` saves `roc_curves_all_methods.tif` and detection metrics Excel.
 
 ## License
 
-This project is licensed under the Apache License 2.0. See LICENSE for details.
+This project is licensed under the Apache License 2.0. See [LICENSE](LICENSE) for details.
 
 ## Contact
 
-Questions or feedback? Please open an issue or contact the maintainer:
+For questions or contributions, please open an issue or contact:
 
 Souvick Mukherjee
-(mailto:souvick25031991@gmail.com)
+National Eye Institute, NIH
+Email: [souvick25031991@gmail.com](mailto:souvick25031991@gmail.com)
