@@ -94,7 +94,7 @@ All outputs (Excel reports, CSVs, and plots) are saved to the directories specif
 ## Examples
 
 * **Dice statistics**: `compute_dice_statistics.py` produces an Excel file with mean±SD Dice for each pair of graders and consensus masks.
-* **ROC curves**: `compute_detection_metrics.py` saves `roc_curves_all_methods.tif` and detection metrics Excel.
+* **ROC curves**: `compute_detection_metrics.py` saves `roc_curves_all_methods.tif`.
 
 ## License
 
