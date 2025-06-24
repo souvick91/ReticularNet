@@ -6,7 +6,7 @@ Automated pixel-level segmentation of Reticular Pseudodrusen (RPD) in infra-red 
 
 * **Deep Learning Model**: Training and testing scripts for RPD segmentation using DeepLabv3+ in MATLAB.
 * **Python Analysis Pipeline**: Compute segmentation metrics, agreement statistics, lesion/detection performance, and generate visualizations.
-* **Clinical Summaries**: Automated generation of Table 1 characteristics and RPD summaries by AMD group.
+* **Clinical Summaries**: Automated generation of Table characteristics and RPD summaries by AMD group.
 * **Statistical Tests**: Intraclass correlation, Wilcoxon, Wald-type tests, ROC/AUC analysis with Youden’s J thresholds.
 * **Visualizations**: Violin plots, Bland–Altman plots, scatter/regression, ROC curves.
 
