@@ -14,16 +14,14 @@ Automated pixel-level segmentation of Reticular Pseudodrusen (RPD) in infra-red 
 
 ```
 ReticularNet/
-├── matlab_scripts_and_checkpoints/       # MATLAB code and pretrained model checkpoints
-│   ├── combinedCrossEntropyDiceLoss.m     # Custom loss combining cross-entropy & Dice
-│   ├── createLGraphUsingConnections.m     # Build DeepLabv3+ layer graph with skip connections
-│   ├── DeepLabv3_Test_for_RPD.m           # Inference script: test RPD segmentation
-│   ├── DeepLabv3_Train_for_RPD.m          # Training script: train DeepLabv3+ on IR images
-│   ├── DeepLabv3plusResnet18CamVid_v2.mat # Pretrained checkpoint for transfer learning. Download checkpoints from our [Release v1.0-checkpoints](https://github.com/souvick91/ReticularNet/releases/tag/checkpoints).
-│   ├── freezeWeights.m                    # Utility to freeze specified network layers
-│   ├── masterTrainTest.m                  # End-to-end train/test workflow wrapper
-│   └── net_finetuned_for_rpd.mat          # Fine-tuned model checkpoint for RPD. Download checkpoints from our [Release v1.0-checkpoints](https://github.com/souvick91/ReticularNet/releases/tag/checkpoints).
-│
+├── combinedCrossEntropyDiceLoss.m        # Custom loss combining cross-entropy & Dice
+├── createLGraphUsingConnections.m        # Build DeepLabv3+ layer graph with skip connections
+├── DeepLabv3_Test_for_RPD.m              # Inference script: test RPD segmentation
+├── DeepLabv3_Train_for_RPD.m             # Training script: train DeepLabv3+ on IR images
+├── DeepLabv3plusResnet18CamVid_v2.mat    # Pretrained checkpoint for transfer learning. Download checkpoints from our [Release v1.0-checkpoints](https://github.com/souvick91/ReticularNet/releases/tag/checkpoints).
+├── freezeWeights.m                       # Utility to freeze specified network layers
+├── masterTrainTest.m                     # End-to-end train/test workflow wrapper
+├── net_finetuned_for_rpd.mat             # Fine-tuned model checkpoint for RPD. Download checkpoints from our [Release v1.0-checkpoints](https://github.com/souvick91/ReticularNet/releases/tag/checkpoints).
 ├── compute_dice_statistics.py            # Pairwise & consensus Dice analysis
 ├── compute_agreement_metrics.py          # ICC & paired Wilcoxon tests
 ├── compute_segmentation_metrics.py       # Lesion counts, areas, contour areas + overlays
@@ -49,8 +47,8 @@ ReticularNet/
    ```
 2. **MATLAB**
 
-   * Ensure you have MATLAB R2022a or later with Deep Learning Toolbox.
-   * Add `matlab_scripts_and_checkpoints/` to your MATLAB path.
+   * Ensure you have MATLAB R2023b or later with Deep Learning Toolbox.
+   * Add script location to your MATLAB path.
 3. **Python**
 
    ```bash
