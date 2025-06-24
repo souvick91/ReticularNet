@@ -34,7 +34,7 @@ ReticularNet/
 ├── summarize_rpd_by_amd_group.py         # RPD prevalence & demographics by AMD severity group
 ├── compute_detection_metrics.py          # ROC/AUC, Youden’s J, p-values, Dice at threshold for detection
 ├── compute_roc_auc_se_and_pvalues.py     # AUC ± SE and p-value vs. chance for AI, graders, combined
-├── requirements.txt                      # Python dependencies
+├── requirements.yml                      # Python dependencies
 ├── LICENSE                               # Apache 2.0 License
 └── README.md                             # This file
 ```
@@ -56,7 +56,8 @@ ReticularNet/
    ```bash
    python3 -m venv venv
    source venv/bin/activate    # Windows: venv\\Scripts\\activate
-   pip install -r requirements.txt
+   conda env create -f requirements.yml
+   conda activate required_env
    ```
 
 ## Configuration
