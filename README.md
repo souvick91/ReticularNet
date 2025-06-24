@@ -19,10 +19,10 @@ ReticularNet/
 │   ├── createLGraphUsingConnections.m     # Build DeepLabv3+ layer graph with skip connections
 │   ├── DeepLabv3_Test_for_RPD.m           # Inference script: test RPD segmentation
 │   ├── DeepLabv3_Train_for_RPD.m          # Training script: train DeepLabv3+ on IR images
-│   ├── DeepLabv3plusResnet18CamVid_v2.mat # Pretrained checkpoint for transfer learning
+│   ├── DeepLabv3plusResnet18CamVid_v2.mat # Pretrained checkpoint for transfer learning. Download checkpoints from our [Release v1.0-checkpoints](https://github.com/souvick91/ReticularNet/releases/tag/v1.0-checkpoints).
 │   ├── freezeWeights.m                    # Utility to freeze specified network layers
 │   ├── masterTrainTest.m                  # End-to-end train/test workflow wrapper
-│   └── net_finetuned_for_rpd.mat          # Fine-tuned model checkpoint for RPD
+│   └── net_finetuned_for_rpd.mat          # Fine-tuned model checkpoint for RPD. Download checkpoints from our [Release v1.0-checkpoints](https://github.com/souvick91/ReticularNet/releases/tag/v1.0-checkpoints).
 │
 ├── compute_dice_statistics.py            # Pairwise & consensus Dice analysis
 ├── compute_agreement_metrics.py          # ICC & paired Wilcoxon tests
