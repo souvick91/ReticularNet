@@ -62,7 +62,7 @@ ReticularNet/
 
 * Modify file paths at the top of each script:
 
-  * **MATLAB**: `DeepLabv3_Train_for_RPD.m` and test scripts expect folders for IR images and ground truth masks.
+  * **MATLAB**: The training `DeepLabv3_Train_for_RPD.m` and the testing `DeepLabv3_Test_for_RPD.m` scripts expect folders for IR images and ground truth masks.
   * **Python**: Each script defines variables like `gt_folder`, `pred_folder`, and `saveLoc`.
 
 ## Usage
